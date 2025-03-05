@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import Booking from '../screens/Booking';
 import Flight from '../screens/Flight';
+import FlightDetails from '../screens/Flightdetails';
 
 const Stack = createStackNavigator();
 
@@ -10,6 +11,7 @@ const BookStackNavigator = () => {
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="Booking" component={Booking} />
       <Stack.Screen name="Flight" component={Flight} />
+      <Stack.Screen name="FlightDetails" component={FlightDetails} />
     </Stack.Navigator>
   );
 };

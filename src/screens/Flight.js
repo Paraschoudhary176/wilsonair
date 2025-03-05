@@ -24,6 +24,7 @@ const Flight = ({navigation}) => {
           departureCity="New Delhi"
           arrivalCity="Goa (North)"
           price="2,340"
+          navigation={navigation}
         />
       </ScrollView>
     </View>
