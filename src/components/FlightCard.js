@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 10,
     elevation: 5,
-    marginHorizontal: 20,
+    marginHorizontal: 5,
     top: wp(5),
   },
   header: {
