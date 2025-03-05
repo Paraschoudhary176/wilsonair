@@ -1,12 +1,12 @@
-import {View, Text} from 'react-native';
 import React from 'react';
-import Booking from './src/screens/Booking';
+import { NavigationContainer } from '@react-navigation/native';
+import BottomNavigation from './src/Navigation/BottomNavigation';
 
 const App = () => {
   return (
-    <View style={{flex: 1}}>
-      <Booking />
-    </View>
+    <NavigationContainer>
+      <BottomNavigation />
+    </NavigationContainer>
   );
 };
 

@@ -7,7 +7,7 @@ import ClassDropdown from '../components/ClassDropdown';
 import DatePickerCard from '../components/DatePickerCard';
 import GradientButton from '../components/GradientButton';
 
-const Booking = () => {
+const Booking = ({navigation}) => {
   const [selectedDate, setSelectedDate] = useState('13th Jun, 22');
 
   return (
@@ -42,7 +42,7 @@ const Booking = () => {
       <View style={{marginTop: 40}}>
         <GradientButton
           title="SEARCH NOW"
-          onPress={() => console.log('Button Pressed')}
+          onPress={() => navigation.navigate('Flight')}
         />
       </View>
     </View>
