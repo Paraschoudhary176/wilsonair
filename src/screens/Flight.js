@@ -8,7 +8,7 @@ import FlightCards from '../components/FlightCards';
 const Flight = ({navigation}) => {
   return (
     <View style={{flex: 1, backgroundColor: '#000'}}>
-      <CustomHeader />
+      <CustomHeader label="Change Flight" />
 
       <FlightCard />
 

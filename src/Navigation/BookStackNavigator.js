@@ -2,7 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import Booking from '../screens/Booking';
 import Flight from '../screens/Flight';
-import FlightDetails from '../screens/Flightdetails';
+import FlightDetails from '../screens/FlightDetails';
 
 const Stack = createStackNavigator();
 

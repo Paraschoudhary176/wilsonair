@@ -55,7 +55,7 @@ const FlightCards = ({
       {/* Price & Details Button */}
       <View style={styles.footer}>
         <Text style={styles.price}>₹{price}</Text>
-        <TouchableOpacity onPress={() => navigation?.navigate('FlightDetails')}>
+        <TouchableOpacity onPress={() => navigation.navigate('FlightDetails')}>
           <Text style={styles.detailsButton}>FLIGHT DETAILS</Text>
         </TouchableOpacity>
       </View>
