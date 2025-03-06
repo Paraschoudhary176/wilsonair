@@ -47,6 +47,7 @@ const Flight = ({navigation, route}) => {
               arrivalCity={segment.Destination.Airport.CityName}
               price={`₹${fare.BaseFare}`}
               navigation={navigation}
+              flightData={flightData}
             />
           );
         })}

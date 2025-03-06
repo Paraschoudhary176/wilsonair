@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 
 const FlightCards = ({
   airline,
@@ -11,12 +11,16 @@ const FlightCards = ({
   arrivalCity,
   price,
   navigation,
+  flightData,
 }) => {
   return (
     <View style={styles.card}>
       {/* Airline Info */}
       <View style={styles.header}>
-        <Image source={require('../assets/img/airline.png')} style={styles.airlineLogo} />
+        <Image
+          source={require('../assets/img/airline.png')}
+          style={styles.airlineLogo}
+        />
         <View>
           <Text style={styles.airlineName}>{airline}</Text>
           <Text style={styles.classType}>{classType}</Text>
@@ -29,7 +33,10 @@ const FlightCards = ({
         <Text style={styles.time}>{departureTime}</Text>
         <View style={styles.durationContainer}>
           <Text style={styles.duration}>{duration}</Text>
-          <Image source={require('../assets/img/flightIcon.png')} style={styles.flightIcon} />
+          <Image
+            source={require('../assets/img/flightIcon.png')}
+            style={styles.flightIcon}
+          />
         </View>
         <Text style={styles.time}>{arrivalTime}</Text>
       </View>
@@ -43,11 +50,17 @@ const FlightCards = ({
       {/* Luggage Info */}
       <View style={styles.luggageContainer}>
         <View style={styles.luggageItem}>
-          <Image source={require('../assets/img/chartup.png')} style={styles.bagIcon} />
+          <Image
+            source={require('../assets/img/chartup.png')}
+            style={styles.bagIcon}
+          />
           <Text style={styles.luggageText}>1 Cabin bag - 7kg</Text>
         </View>
         <View style={styles.luggageItem}>
-          <Image source={require('../assets/img/chartdown.png')} style={styles.bagIcon} />
+          <Image
+            source={require('../assets/img/chartdown.png')}
+            style={styles.bagIcon}
+          />
           <Text style={styles.luggageText}>2 Check-in Bags 23kg</Text>
         </View>
       </View>
@@ -55,7 +68,12 @@ const FlightCards = ({
       {/* Price & Details Button */}
       <View style={styles.footer}>
         <Text style={styles.price}>₹{price}</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('FlightDetails')}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('FlightDetails', {
+              flightData,
+            })
+          }>
           <Text style={styles.detailsButton}>FLIGHT DETAILS</Text>
         </TouchableOpacity>
       </View>

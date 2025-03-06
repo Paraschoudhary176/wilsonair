@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Image, Text } from 'react-native';
+import { Image, Text, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import WishScreen from '../screens/WishScreen';
 import FindScreen from '../screens/FindScreen';
 import BooboAi from '../screens/BooboAi';
@@ -10,102 +11,71 @@ import BookStackNavigator from './BookStackNavigator';
 const Tab = createBottomTabNavigator();
 
 const BottomNavigation = () => {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    // Automatically navigate to the "Book" tab on app load
+    navigation.navigate('Book');
+  }, []);
+
+  // Function to show an alert when clicking on disabled tabs
+  const showComingSoonAlert = () => {
+    Alert.alert('Coming Soon', 'This feature will be available in future updates.');
+  };
+
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: '#121212', // Dark background
-          height: 64, // Adjusted to match your design
-          borderTopWidth: 0, // Remove top border line
+          backgroundColor: '#121212',
+          height: 64,
+          borderTopWidth: 0,
         },
         tabBarItemStyle: {
           justifyContent: 'center',
           alignItems: 'center',
-          paddingVertical: 5, // Adjust for spacing
+          paddingVertical: 5,
         },
       }}
     >
-      <Tab.Screen
-        name="Wish"
-        component={WishScreen}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <Image
-              source={require('../assets/img/wish.png')}
-              style={{
-                tintColor: focused ? '#00E6E6' : '#808080',
-                width: 24,
-                height: 24,
-                marginBottom: 4,
-              }}
-            />
-          ),
-          tabBarLabel: ({ focused }) => (
-            <Text style={{ color: focused ? '#00E6E6' : '#808080', fontSize: 12 }}>WISH</Text>
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Find"
-        component={FindScreen}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <Image
-              source={require('../assets/img/Find.png')}
-              style={{
-                tintColor: focused ? '#00E6E6' : '#808080',
-                width: 24,
-                height: 24,
-                marginBottom: 4,
-              }}
-            />
-          ),
-          tabBarLabel: ({ focused }) => (
-            <Text style={{ color: focused ? '#00E6E6' : '#808080', fontSize: 12 }}>FIND</Text>
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Bobo AI"
-        component={BooboAi}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <Image
-              source={require('../assets/img/Bobo.png')}
-              style={{
-                tintColor: focused ? '#00E6E6' : '#808080',
-                width: 24,
-                height: 24,
-                marginBottom: 4,
-              }}
-            />
-          ),
-          tabBarLabel: ({ focused }) => (
-            <Text style={{ color: focused ? '#00E6E6' : '#808080', fontSize: 12 }}>BOBO AI</Text>
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Plan"
-        component={Plan}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <Image
-              source={require('../assets/img/Plan.png')}
-              style={{
-                tintColor: focused ? '#00E6E6' : '#808080',
-                width: 24,
-                height: 24,
-                marginBottom: 4,
-              }}
-            />
-          ),
-          tabBarLabel: ({ focused }) => (
-            <Text style={{ color: focused ? '#00E6E6' : '#808080', fontSize: 12 }}>PLAN</Text>
-          ),
-        }}
-      />
+      {/* Disabled Tabs with Alert */}
+      {[
+        { name: 'Wish', component: WishScreen, icon: require('../assets/img/wish.png') },
+        { name: 'Find', component: FindScreen, icon: require('../assets/img/Find.png') },
+        { name: 'Bobo AI', component: BooboAi, icon: require('../assets/img/Bobo.png') },
+        { name: 'Plan', component: Plan, icon: require('../assets/img/Plan.png') },
+      ].map((tab) => (
+        <Tab.Screen
+          key={tab.name}
+          name={tab.name}
+          component={() => null} // Prevent navigation
+          listeners={{
+            tabPress: (e) => {
+              e.preventDefault(); // Prevent default navigation
+              showComingSoonAlert();
+            },
+          }}
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <Image
+                source={tab.icon}
+                style={{
+                  tintColor: focused ? '#00E6E6' : '#808080',
+                  width: 24,
+                  height: 24,
+                  marginBottom: 4,
+                }}
+              />
+            ),
+            tabBarLabel: ({ focused }) => (
+              <Text style={{ color: focused ? '#00E6E6' : '#808080', fontSize: 12 }}>{tab.name.toUpperCase()}</Text>
+            ),
+          }}
+        />
+      ))}
+
+      {/* Enabled "Book" Tab */}
       <Tab.Screen
         name="Book"
         component={BookStackNavigator}
