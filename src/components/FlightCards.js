@@ -118,9 +118,9 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   flightIcon: {
-    width: 20,
+    // width: 20,
     height: 20,
-    tintColor: '#00E6E6',
+    // tintColor: '#00E6E6',
   },
   locationContainer: {
     flexDirection: 'row',

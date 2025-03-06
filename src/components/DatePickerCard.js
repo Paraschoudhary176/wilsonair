@@ -1,32 +1,38 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { useState } from 'react';
 
-const DatePickerCard = ({ label, selectedDate, onDateChange }) => {
+const DatePickerCard = ({label, selectedDate, onDateChange}) => {
   const [showPicker, setShowPicker] = useState(false);
 
   const handleDateChange = (event, date) => {
     setShowPicker(false);
     if (date) {
-      const formattedDate = date.toLocaleDateString('en-GB', {
-        day: '2-digit',
-        month: 'short',
-        year: '2-digit',
-      });
-      onDateChange(formattedDate);
+      const formattedDate = date.toISOString().split('T')[0]; // Format as YYYY-MM-DD for API
+      console.log(`Selected Date for ${label}:`, formattedDate);
+      onDateChange(formattedDate); // Pass the selected date to parent
     }
   };
 
   return (
     <View style={styles.card}>
       <Text style={styles.label}>{label}</Text>
-      <TouchableOpacity style={styles.dropdownContainer} onPress={() => setShowPicker(true)}>
-        <Text style={styles.selectedText}>{selectedDate}</Text>
-        <Image source={require('../assets/img/calander.png')} style={styles.calendarIcon} />
+      <TouchableOpacity
+        style={styles.dropdownContainer}
+        onPress={() => setShowPicker(true)}>
+        <Text style={styles.selectedText}>{selectedDate || 'Select Date'}</Text>
+        <Image
+          source={require('../assets/img/calander.png')}
+          style={styles.calendarIcon}
+        />
       </TouchableOpacity>
       {showPicker && (
-        <DateTimePicker value={new Date()} mode="date" display="default" onChange={handleDateChange} />
+        <DateTimePicker
+          value={selectedDate ? new Date(selectedDate) : new Date()}
+          mode="date"
+          display="default"
+          onChange={handleDateChange}
+        />
       )}
     </View>
   );

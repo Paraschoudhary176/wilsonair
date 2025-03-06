@@ -5,27 +5,51 @@ import FlightCard from '../components/FlightCard';
 import FilterButtons from '../components/FilterButtons';
 import FlightCards from '../components/FlightCards';
 
-const Flight = ({navigation}) => {
+const Flight = ({navigation, route}) => {
+  const {flightData} = route.params;
+
+  // Ensure flightData has results
+  if (!flightData || !flightData.Response || !flightData.Response.Results) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: '#000',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Text style={{color: 'white', fontSize: 18}}>No Flights Available</Text>
+      </View>
+    );
+  }
+
+  const flights = flightData.Response.Results[0]; // Get the list of flights
+
   return (
     <View style={{flex: 1, backgroundColor: '#000'}}>
       <CustomHeader label="Change Flight" />
-
       <FlightCard />
-
       <FilterButtons />
 
       <ScrollView>
-        <FlightCards
-          airline="Air India"
-          classType="Economy Class"
-          departureTime="07:55"
-          arrivalTime="10:20"
-          duration="2H 55M"
-          departureCity="New Delhi"
-          arrivalCity="Goa (North)"
-          price="2,340"
-          navigation={navigation}
-        />
+        {flights.map((flight, index) => {
+          const segment = flight.Segments[0][0];
+          const fare = flight.Fare;
+          return (
+            <FlightCards
+              key={index}
+              airline={flight.ValidatingAirline}
+              classType="Economy Class"
+              departureTime={segment.DepTime?.split('T')[1]}
+              arrivalTime={segment.ArrTime?.split('T')[1]}
+              duration={segment.Duration + ' min'}
+              departureCity={segment.Origin.Airport.CityName}
+              arrivalCity={segment.Destination.Airport.CityName}
+              price={`₹${fare.BaseFare}`}
+              navigation={navigation}
+            />
+          );
+        })}
       </ScrollView>
     </View>
   );
