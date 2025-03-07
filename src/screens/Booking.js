@@ -6,6 +6,7 @@ import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import ClassDropdown from '../components/ClassDropdown';
 import DatePickerCard from '../components/DatePickerCard';
 import GradientButton from '../components/GradientButton';
+import { token } from '../utils/Constants';
 
 const Booking = ({navigation}) => {
   const [selectedDate, setSelectedDate] = useState('');
@@ -23,7 +24,7 @@ const Booking = ({navigation}) => {
     console.log(formattedDate ,'formattedDate =>>>>>>>>>>>>>>>>>>>>>>>>>>>')
     const requestBody = {
       EndUserIp: '192.168.5.56',
-      TokenId: '45a8f38d-f200-46aa-875b-c9866b6619cb',
+      TokenId: `${token}`,
       AdultCount: 2,
       ChildCount: 1,
       InfantCount: 0,

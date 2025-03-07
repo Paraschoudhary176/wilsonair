@@ -11,7 +11,8 @@ const FlightCards = ({
   arrivalCity,
   price,
   navigation,
-  flightData,
+  resultIndex,
+  traceId,
 }) => {
   return (
     <View style={styles.card}>
@@ -71,7 +72,8 @@ const FlightCards = ({
         <TouchableOpacity
           onPress={() =>
             navigation.navigate('FlightDetails', {
-              flightData,
+              resultIndex,
+              traceId,
             })
           }>
           <Text style={styles.detailsButton}>FLIGHT DETAILS</Text>

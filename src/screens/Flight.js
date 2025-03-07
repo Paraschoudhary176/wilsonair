@@ -35,6 +35,8 @@ const Flight = ({navigation, route}) => {
         {flights.map((flight, index) => {
           const segment = flight.Segments[0][0];
           const fare = flight.Fare;
+          const resultIndex = flight.ResultIndex;
+          const traceId = flightData.Response.TraceId;
           return (
             <FlightCards
               key={index}
@@ -47,7 +49,8 @@ const Flight = ({navigation, route}) => {
               arrivalCity={segment.Destination.Airport.CityName}
               price={`₹${fare.BaseFare}`}
               navigation={navigation}
-              flightData={flightData}
+              resultIndex={resultIndex}
+              traceId={traceId}
             />
           );
         })}
